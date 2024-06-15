@@ -85,7 +85,8 @@ def run_parse_mmlu_response(
         str (one of "A", "B", "C", or "D") if the model output can be parsed into a prediction,
         else None.
     """
-    raise NotImplementedError
+    from cs336_alignment.task import MMLU
+    return MMLU.parse_mmlu_response(model_output)
 
 
 def run_parse_gsm8k_response(
@@ -102,7 +103,8 @@ def run_parse_gsm8k_response(
         str with the predicted numeric answer if the model output can be parsed into a prediction,
         else None.
     """
-    raise NotImplementedError
+    from cs336_alignment.task import GSM8K
+    return GSM8K.parse_gsm8k_response(model_output)
 
 
 def compute_per_instance_dpo_loss(

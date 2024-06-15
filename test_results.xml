@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="7" time="9.055" timestamp="2024-06-11T13:22:57.325022" hostname="ad12a3ca-02.cloud.together.ai"><testcase classname="tests.test_data" name="test_packed_sft_dataset" time="0.288"><failure message="NotImplementedError">def test_packed_sft_dataset():
+        sft_sample_path = FIXTURES_PATH / "sft_sample.jsonl"
+        tokenizer = AutoTokenizer.from_pretrained(FIXTURES_PATH / "Meta-Llama-3-8B")
+        seq_length = 32
+&gt;       packed_sft_dataset = get_packed_sft_dataset(
+            tokenizer=tokenizer,
+            dataset_path=sft_sample_path,
+            seq_length=seq_length,
+            shuffle=False,
+        )
+
+tests/test_data.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tokenizer = PreTrainedTokenizerFast(name_or_path='/home/c-zitong/spring2024-assignment5-alignment/tests/fixtures/Meta-Llama-3-8B',...ken("&lt;|reserved_special_token_250|&gt;", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+}
+dataset_path = PosixPath('/home/c-zitong/spring2024-assignment5-alignment/tests/fixtures/sft_sample.jsonl'), seq_length = 32, shuffle = False
+
+    def get_packed_sft_dataset(
+        tokenizer: PreTrainedTokenizerBase,
+        dataset_path: str | os.PathLike,
+        seq_length: int,
+        shuffle: bool,
+    ) -&gt; Dataset:
+        """
+        Given a tokenizer and a path to a dataset with instruction-tuning examples,
+        construct a PyTorch Dataset for language modeling. The examples should be
+        packed, i.e., all sequences in the dataset are of a constant length (`seq_length`).
+    
+        Args:
+            tokenizer: transformers.PreTrainedTokenizerBase
+                Transformers tokenizer to use in tokenizing and encoding text.
+            dataset_path: str
+                Path to file with instruction-tuning examples.
+            seq_length: int
+                Number of tokens to include in each example.
+            shuffle: bool
+                If true, shuffle the documents before packing them into examples.
+    
+        Returns:
+            PyTorch Dataset for language modeling. Each example in this dataset is a dictionary of
+            with keys "input_ids" and "labels" (both tensors of shape (seq_length, )).
+            "input_ids" contains the token IDs for the language modeling inputs, and "labels" contains
+            the token IDs for the language modeling labels.
+        """
+&gt;       raise NotImplementedError
+E       NotImplementedError
+
+tests/adapters.py:39: NotImplementedError</failure></testcase><testcase classname="tests.test_data" name="test_iterate_batches" time="0.247"><failure message="NotImplementedError">def test_iterate_batches():
+        sft_sample_path = FIXTURES_PATH / "sft_sample.jsonl"
+        tokenizer = AutoTokenizer.from_pretrained(FIXTURES_PATH / "Meta-Llama-3-8B")
+        seq_length = 32
+        batch_size = 8
+&gt;       packed_sft_dataset = get_packed_sft_dataset(
+            tokenizer=tokenizer,
+            dataset_path=sft_sample_path,
+            seq_length=seq_length,
+            shuffle=True,
+        )
+
+tests/test_data.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tokenizer = PreTrainedTokenizerFast(name_or_path='/home/c-zitong/spring2024-assignment5-alignment/tests/fixtures/Meta-Llama-3-8B',...ken("&lt;|reserved_special_token_250|&gt;", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+}
+dataset_path = PosixPath('/home/c-zitong/spring2024-assignment5-alignment/tests/fixtures/sft_sample.jsonl'), seq_length = 32, shuffle = True
+
+    def get_packed_sft_dataset(
+        tokenizer: PreTrainedTokenizerBase,
+        dataset_path: str | os.PathLike,
+        seq_length: int,
+        shuffle: bool,
+    ) -&gt; Dataset:
+        """
+        Given a tokenizer and a path to a dataset with instruction-tuning examples,
+        construct a PyTorch Dataset for language modeling. The examples should be
+        packed, i.e., all sequences in the dataset are of a constant length (`seq_length`).
+    
+        Args:
+            tokenizer: transformers.PreTrainedTokenizerBase
+                Transformers tokenizer to use in tokenizing and encoding text.
+            dataset_path: str
+                Path to file with instruction-tuning examples.
+            seq_length: int
+                Number of tokens to include in each example.
+            shuffle: bool
+                If true, shuffle the documents before packing them into examples.
+    
+        Returns:
+            PyTorch Dataset for language modeling. Each example in this dataset is a dictionary of
+            with keys "input_ids" and "labels" (both tensors of shape (seq_length, )).
+            "input_ids" contains the token IDs for the language modeling inputs, and "labels" contains
+            the token IDs for the language modeling labels.
+        """
+&gt;       raise NotImplementedError
+E       NotImplementedError
+
+tests/adapters.py:39: NotImplementedError</failure></testcase><testcase classname="tests.test_dpo" name="test_per_instance_dpo_loss" time="1.677"><failure message="NotImplementedError">def test_per_instance_dpo_loss():
+        tokenizer = AutoTokenizer.from_pretrained("gpt2")
+    
+        model = AutoModelForCausalLM.from_pretrained(FIXTURES_PATH / "tiny-gpt2")
+        model_ref = AutoModelForCausalLM.from_pretrained(FIXTURES_PATH / "tiny-gpt2-ref")
+    
+        prompt = "The quick brown fox jumps over"
+        good_response = "the lazy dog."
+        bad_response = "their crazy frog."
+    
+&gt;       loss = compute_per_instance_dpo_loss(
+            lm=model,
+            lm_ref=model_ref,
+            tokenizer=tokenizer,
+            beta=0.5,
+            prompt=prompt,
+            response_chosen=good_response,
+            response_rejected=bad_response,
+        )
+
+tests/test_dpo.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lm = GPT2LMHeadModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 128)
+    (wpe): Embedding(1024, 128)
+    (dro...((128,), eps=1e-05, elementwise_affine=True)
+  )
+  (lm_head): Linear(in_features=128, out_features=50257, bias=False)
+)
+lm_ref = GPT2LMHeadModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 128)
+    (wpe): Embedding(1024, 128)
+    (dro...((128,), eps=1e-05, elementwise_affine=True)
+  )
+  (lm_head): Linear(in_features=128, out_features=50257, bias=False)
+)
+tokenizer = GPT2TokenizerFast(name_or_path='gpt2', vocab_size=50257, model_max_length=1024, is_fast=True, padding_side='right', tr...={
+	50256: AddedToken("&lt;|endoftext|&gt;", rstrip=False, lstrip=False, single_word=False, normalized=True, special=True),
+}
+beta = 0.5, prompt = 'The quick brown fox jumps over', response_chosen = 'the lazy dog.', response_rejected = 'their crazy frog.'
+
+    def compute_per_instance_dpo_loss(
+        lm: torch.nn.Module,
+        lm_ref: torch.nn.Module,
+        tokenizer: PreTrainedTokenizerBase,
+        beta: float,
+        prompt: str,
+        response_chosen: str,
+        response_rejected: str,
+    ) -&gt; torch.Tensor:
+        """
+        Given two language models (`lm`, and the "reference model" `lm_ref`),
+        their tokenizer, the DPO beta hyperparameter, a prompt and a pair
+        of responses to the prompt, computes the value of the DPO loss for this example.
+    
+        lm: torch.nn.Module
+            Language model being trained.
+        lm_ref: torch.nn.Module
+            Reference language model.
+        tokenizer: PreTrainedTokenizerBase
+            Tokenizer for both language models.
+        beta: float
+            DPO beta hyperparameter.
+        prompt: str
+            Prompt for this instance of preference pair.
+        response_chosen: str
+            Preferred response to the prompt.
+        response_rejected: str
+            Rejected response to the prompt.
+    
+        Returns:
+            torch.Tensor with the DPO loss for this example.
+        """
+&gt;       raise NotImplementedError
+E       NotImplementedError
+
+tests/adapters.py:142: NotImplementedError</failure></testcase><testcase classname="tests.test_metrics" name="test_parse_mmlu_response" time="1.207"><failure message="AssertionError: assert 1 == 'B'">def test_parse_mmlu_response():
+        mmlu_example = {
+            "subject": "virology",
+            "question": "How many human polyomaviruses are known at present?",
+            "options": ["100", "1", "10", "unknown"],
+            "answer": "A",
+        }
+        model_output = (
+            "The correct answer is B. "
+            "There is only one human polyomavirus known at present, which is the BK virus."
+        )
+        parsed_response = run_parse_mmlu_response(
+            mmlu_example=mmlu_example, model_output=model_output
+        )
+&gt;       assert parsed_response == "B"
+E       AssertionError: assert 1 == 'B'
+
+tests/test_metrics.py:23: AssertionError</failure></testcase><testcase classname="tests.test_metrics" name="test_parse_mmlu_response_unknown" time="0.000"><failure message="assert not 5">def test_parse_mmlu_response_unknown():
+        mmlu_example = {
+            "subject": "virology",
+            "question": "How many human polyomaviruses are known at present?",
+            "options": ["100", "1", "10", "unknown"],
+            "answer": "A",
+        }
+        model_output = "The correct answer is 10000 polyomaviruses."
+        parsed_response = run_parse_mmlu_response(
+            mmlu_example=mmlu_example, model_output=model_output
+        )
+&gt;       assert not parsed_response
+E       assert not 5
+
+tests/test_metrics.py:37: AssertionError</failure></testcase><testcase classname="tests.test_metrics" name="test_parse_gsm8k_response" time="0.000" /><testcase classname="tests.test_metrics" name="test_parse_gsm8k_response_unknown" time="0.000" /></testsuite></testsuites>
